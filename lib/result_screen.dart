@@ -9,6 +9,9 @@ import 'main.dart';
 
 class ResultScreen extends StatefulWidget {
   static const routeName = '/resultScreen';
+  final ScreenArguments args;
+
+  ResultScreen({Key key, this.args}) : super(key: key);
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
@@ -37,30 +40,27 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   _onFirstBuild() {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
-    results.clear();
-
     bool deleteLastRating = true;
 
     /// If there's more than one vote, and the last vote is zero on all options, delete the last vote
-    args.options.forEach((option) {
+    widget.args.options.forEach((option) {
       if (option.ratings.last != 0) {
         deleteLastRating = false;
       }
     });
 
     /// If there's only one vote, we'll leave that vote in even if it's zero
-    if (args.options.first.ratings.length > 1) {
+    if (widget.args.options.first.ratings.length > 1) {
       if (deleteLastRating) {
-        args.options.forEach((option) {
+        widget.args.options.forEach((option) {
           option.ratings.removeLast();
         });
       }
     }
 
-    numberOfVoters = args.options.first.ratings.length;
+    numberOfVoters = widget.args.options.first.ratings.length;
 
-    for (var option in args.options) {
+    for (var option in widget.args.options) {
       double averageRating = 0;
       option.ratings.forEach((rating) {
         print(option.text + " rating: " + rating.toString());
@@ -94,7 +94,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 ),
               ),
               Text(
-                numberOfVoters.toString() + (numberOfVoters == 1 ? ' vote' : ' votes'),
+                numberOfVoters.toString() + (numberOfVoters == 1 ? ' person voted' : ' people voted'),
                 style: GoogleFonts.pTSans(
                   color: contrastMainColor,
                   fontSize: 20,
@@ -171,7 +171,7 @@ class _ResultScreenState extends State<ResultScreen> {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(
+              Navigator.pushReplacementNamed(
                 context,
                 StartScreen.routeName,
               );

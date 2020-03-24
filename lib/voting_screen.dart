@@ -9,6 +9,9 @@ import 'main.dart';
 
 class VotingScreen extends StatefulWidget {
   static const routeName = '/votingScreen';
+  final ScreenArguments args;
+
+  VotingScreen({Key key, this.args}) : super(key: key);
 
   @override
   _VotingScreenState createState() => _VotingScreenState();
@@ -33,8 +36,6 @@ class _VotingScreenState extends State<VotingScreen> {
   }
 
   Widget _body() {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
-
     return Flex(
       direction: Axis.vertical,
       children: <Widget>[
@@ -45,7 +46,8 @@ class _VotingScreenState extends State<VotingScreen> {
               "Person " + (_votingIndex + 1).toString(),
               style: GoogleFonts.pTSans(
                 color: contrastMainColor,
-                fontSize: 24,
+                fontSize: 26,
+                fontWeight: FontWeight.w800,
               ),
             ),
           ),
@@ -59,7 +61,7 @@ class _VotingScreenState extends State<VotingScreen> {
               ),
               shrinkWrap: false,
               children: <Widget>[
-                for (var option in args.options) _optionRow(option),
+                for (var option in widget.args.options) _optionRow(option),
               ],
             ),
           ),
@@ -121,10 +123,10 @@ class _VotingScreenState extends State<VotingScreen> {
             child: OutlineButton(
               child: Text("SHOW RESULTS", style: mediumButtonText),
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.pushReplacementNamed(
                   context,
                   ResultScreen.routeName,
-                  arguments: ModalRoute.of(context).settings.arguments,
+                  arguments: widget.args,
                 );
               },
               disabledBorderColor: disabledButtonColor,

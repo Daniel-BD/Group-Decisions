@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'theming.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'voting_screen.dart';
 import 'result_screen.dart';
+import 'router.dart' as router;
 
-void main() => runApp(GroupRankingApp());
+// TODO: Ordna de populäraste valen först i "results"
+// TODO: Om två eller flera resultat är lika, ha en knapp som väljer en på random
+
+
+void main() {
+  runApp(GroupRankingApp());
+}
 
 class GroupRankingApp extends StatelessWidget {
   @override
@@ -16,21 +24,16 @@ class GroupRankingApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Group Decider',
-      home: StartScreen(title: 'Home'),
-      routes: {
-        VotingScreen.routeName: (context) => VotingScreen(),
-        ResultScreen.routeName: (context) => ResultScreen(),
-        StartScreen.routeName: (context) => StartScreen(),
-      },
+      initialRoute: StartScreen.routeName,
+      onGenerateRoute: router.generateRoute,
     );
   }
 }
 
 class StartScreen extends StatefulWidget {
   static const routeName = '/startScreen';
-  final String title;
 
-  StartScreen({Key key, this.title}) : super(key: key);
+  StartScreen({Key key}) : super(key: key);
 
   @override
   _StartScreenState createState() => _StartScreenState();
@@ -245,7 +248,7 @@ class _StartScreenState extends State<StartScreen> {
               onPressed: _options.isEmpty
                   ? null
                   : () {
-                      Navigator.pushNamed(
+                      Navigator.pushReplacementNamed(
                         context,
                         VotingScreen.routeName,
                         arguments: ScreenArguments(_options),
@@ -281,7 +284,7 @@ class _StartScreenState extends State<StartScreen> {
   Widget _addOptionTextField() {
     return AnimatedPositioned(
       duration: Duration(milliseconds: 150),
-      bottom: 0, //MediaQuery.of(context).viewInsets.bottom,
+      bottom: 0,
       left: 0,
       right: 0,
       child: Visibility(
