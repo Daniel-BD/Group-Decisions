@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:tuple/tuple.dart';
 
@@ -20,6 +20,7 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   final List<Tuple2<String, double>> results = [];
   bool hasCalculatedResult = false;
+  bool multipleWinners = false;
   int numberOfVoters = 0;
 
   @override
@@ -60,18 +61,26 @@ class _ResultScreenState extends State<ResultScreen> {
 
     numberOfVoters = widget.args.options.first.ratings.length;
 
+    /// Calculate average ranking for each option
     for (var option in widget.args.options) {
       double averageRating = 0;
       option.ratings.forEach((rating) {
-        print(option.text + " rating: " + rating.toString());
         averageRating += rating;
       });
-      averageRating = (averageRating / option.ratings.length) - 0.01;
-
-      print("average rating: " + averageRating.toString());
+      averageRating = (averageRating / option.ratings.length);
 
       results.add(Tuple2(option.text, averageRating));
     }
+
+    /// Sort highest first
+    results.sort((a, b) => b.item2.compareTo(a.item2));
+
+    /// See if two or more more options share the highest ranking
+    var highestRanked = results.where((result) => result.item2 == results.first.item2);
+    if (highestRanked.length > 1) {
+      multipleWinners = true;
+    }
+    print(highestRanked.length);
 
     hasCalculatedResult = true;
   }
@@ -136,15 +145,21 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
           ),
           Container(height: 8),
-          SmoothStarRating(
-              allowHalfRating: true,
-              onRatingChanged: (v) {},
-              starCount: 5,
-              rating: result.item2,
-              size: 40.0,
-              color: secondaryColor,
-              borderColor: secondaryColor,
-              spacing: 0.0),
+          Stack(
+            children: <Widget>[
+              RatingBarIndicator(
+                rating: result.item2,
+                direction: Axis.horizontal,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: secondaryColor,
+                ),
+                unratedColor: unratedStarColor,
+              ),
+            ],
+          ),
           Container(height: 10),
           Divider(
             thickness: 1.5,

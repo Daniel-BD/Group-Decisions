@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:group_ranking/result_screen.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 
 import 'theming.dart';
@@ -89,7 +89,22 @@ class _VotingScreenState extends State<VotingScreen> {
             ),
           ),
           Container(height: 8),
-          SmoothStarRating(
+          RatingBar(
+            initialRating: option.ratings[_votingIndex],
+            minRating: 0,
+            direction: Axis.horizontal,
+            allowHalfRating: false,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(Icons.star, color: secondaryColor),
+            onRatingUpdate: (v) {
+              option.ratings[_votingIndex] = v;
+              setState(() {});
+            },
+            unratedColor: unratedStarColor,
+            glow: false,
+          ),
+          /*SmoothStarRating(
               allowHalfRating: false,
               onRatingChanged: (v) {
                 option.ratings[_votingIndex] = v;
@@ -100,7 +115,7 @@ class _VotingScreenState extends State<VotingScreen> {
               size: 40.0,
               color: secondaryColor,
               borderColor: secondaryColor,
-              spacing: 0.0),
+              spacing: 0.0),*/
           Container(height: 10),
           Divider(
             thickness: 1.5,

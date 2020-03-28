@@ -23,7 +23,7 @@ dependencies:
   google_fonts: ^0.3.9
   keyboard_visibility: ^0.5.6
   fading_edge_scrollview: ^1.1.0
-  smooth_star_rating: 1.0.4+2
+  flutter_rating_bar: ^3.0.1+1
   tuple: ^1.0.3
   page_transition: ^1.1.5
 
