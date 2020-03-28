@@ -5,6 +5,7 @@ final Color mainColor = Color.fromRGBO(38, 56, 139, 1);
 final Color contrastMainColor = Colors.white;
 
 final Color secondaryColor = Color.fromRGBO(255, 214, 0, 1);
+final Color unratedStarColor = Color.fromRGBO(15, 23, 62, 0.98);
 
 final Color enabledButtonTextColor = Colors.black;
 final Color disabledButtonColor = Color.fromRGBO(111, 111, 111, 1);
