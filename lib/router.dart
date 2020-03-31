@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'main.dart';
 import 'result_screen.dart';
 import 'voting_screen.dart';
+import 'start_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

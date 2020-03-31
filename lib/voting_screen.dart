@@ -23,14 +23,17 @@ class _VotingScreenState extends State<VotingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: mainColor,
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: _body(),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: _bottomButtons(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: mainColor,
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: _body(),
+        ),
+        bottomNavigationBar: SafeArea(
+          child: _bottomButtons(),
+        ),
       ),
     );
   }
@@ -56,9 +59,6 @@ class _VotingScreenState extends State<VotingScreen> {
           child: FadingEdgeScrollView.fromScrollView(
             child: ListView(
               controller: _scrollController,
-              physics: AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
               shrinkWrap: false,
               children: <Widget>[
                 for (var option in widget.args.options) _optionRow(option),
@@ -104,18 +104,6 @@ class _VotingScreenState extends State<VotingScreen> {
             unratedColor: unratedStarColor,
             glow: false,
           ),
-          /*SmoothStarRating(
-              allowHalfRating: false,
-              onRatingChanged: (v) {
-                option.ratings[_votingIndex] = v;
-                setState(() {});
-              },
-              starCount: 5,
-              rating: option.ratings[_votingIndex],
-              size: 40.0,
-              color: secondaryColor,
-              borderColor: secondaryColor,
-              spacing: 0.0),*/
           Container(height: 10),
           Divider(
             thickness: 1.5,
@@ -130,13 +118,13 @@ class _VotingScreenState extends State<VotingScreen> {
 
   Widget _bottomButtons() {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: bottomPadding),
       child: Row(
         children: <Widget>[
           ButtonTheme(
             height: 50,
             child: OutlineButton(
-              child: Text("SHOW RESULTS", style: mediumButtonText),
+              child: Text("SHOW RESULT", style: mediumButtonText),
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   context,

@@ -6,6 +6,7 @@ import 'package:tuple/tuple.dart';
 import 'theming.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'main.dart';
+import 'start_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   static const routeName = '/resultScreen';
@@ -28,14 +29,17 @@ class _ResultScreenState extends State<ResultScreen> {
     if (!hasCalculatedResult) {
       _onFirstBuild();
     }
-    return Scaffold(
-      backgroundColor: mainColor,
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: _body(),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: _bottomButtons(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: mainColor,
+        resizeToAvoidBottomInset: true,
+        body: SafeArea(
+          child: _body(),
+        ),
+        bottomNavigationBar: SafeArea(
+          child: _bottomButtons(),
+        ),
       ),
     );
   }
@@ -116,9 +120,6 @@ class _ResultScreenState extends State<ResultScreen> {
           child: FadingEdgeScrollView.fromScrollView(
             child: ListView(
               controller: ScrollController(),
-              physics: AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
               shrinkWrap: false,
               children: <Widget>[
                 for (var result in results) _optionRow(result),
@@ -173,34 +174,37 @@ class _ResultScreenState extends State<ResultScreen> {
   }
 
   Widget _bottomButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        ButtonTheme(
-          padding: EdgeInsets.only(left: 40, right: 40),
-          height: 50,
-          child: FlatButton(
-            child: Row(
-              children: <Widget>[
-                Text("NEW VOTE", style: mediumButtonText),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushReplacementNamed(
-                context,
-                StartScreen.routeName,
-              );
-            },
-            disabledColor: disabledButtonColor,
-            disabledTextColor: disabledButtonTextColor,
-            color: secondaryColor,
-            textColor: enabledButtonTextColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+    return Padding(
+      padding: EdgeInsets.only(bottom: bottomPadding),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ButtonTheme(
+            padding: EdgeInsets.only(left: 30, right: 30),
+            height: 50,
+            child: FlatButton(
+              child: Row(
+                children: <Widget>[
+                  Text("NEW VOTE", style: bigButtonText),
+                ],
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                  context,
+                  StartScreen.routeName,
+                );
+              },
+              disabledColor: disabledButtonColor,
+              disabledTextColor: disabledButtonTextColor,
+              color: secondaryColor,
+              textColor: enabledButtonTextColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

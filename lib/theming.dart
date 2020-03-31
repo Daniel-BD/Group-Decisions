@@ -29,3 +29,5 @@ final TextStyle mediumButtonText = GoogleFonts.nunito(
   fontSize: 17,
   fontWeight: FontWeight.w900,
 );
+
+double bottomPadding = 20;
