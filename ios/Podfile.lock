@@ -1,6 +1,4 @@
 PODS:
-  - device_info (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - keyboard_visibility (0.5.0):
     - Flutter
@@ -10,7 +8,6 @@ PODS:
   - Reachability (3.2)
 
 DEPENDENCIES:
-  - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `Flutter`)
   - keyboard_visibility (from `.symlinks/plugins/keyboard_visibility/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -20,8 +17,6 @@ SPEC REPOS:
     - Reachability
 
 EXTERNAL SOURCES:
-  device_info:
-    :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: Flutter
   keyboard_visibility:
@@ -30,7 +25,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
 
 SPEC CHECKSUMS:
-  device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   keyboard_visibility: 96a24de806fe6823c3ad956c01ba2ec6d056616f
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
