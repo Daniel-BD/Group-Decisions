@@ -1,16 +1,7 @@
-# group_ranking
+# Group Decisions
 
-A new Flutter project.
+Group Decisions helps your group of friends decide where to eat, what game to play or who has the coolest beard! Just add some options, start ranking them, pass the phone to the next person and when you're done, see the results.
 
-## Getting Started
+## Contact
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+If you have any questions, feel free to send me an email: daniel.b.olofsson@gmail.com
