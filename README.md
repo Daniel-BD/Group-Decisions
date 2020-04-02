@@ -6,4 +6,4 @@ Group Decisions helps your group of friends decide where to eat, what game to pl
 
 If you have any questions, feel free to send me an email: daniel.b.olofsson@gmail.com
 
-![](demo.gif)
+![](demo.png)
